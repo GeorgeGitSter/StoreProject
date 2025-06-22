@@ -149,9 +149,25 @@ namespace StoreProject
 
         private void btnFrmProductCreate_Click(object sender, EventArgs e)
         {
-            FrmProductCreate frm = new FrmProductCreate(); // สร้าง instance ของฟอร์มใหม่
-            frm.Show(); // เปิดฟอร์มแบบไม่ modal (ไม่บล็อกฟอร์มปัจจุบัน)
+            //เปิดแบบ Object ใหม่ 
+            FrmProductCreate frmProductCreate = new FrmProductCreate(); // สร้าง instance ของฟอร์มใหม่
+            //frm.Show(); // เปิดฟอร์มแบบไม่ modal (ไม่บล็อกฟอร์มปัจจุบัน)
+
+            //เปิดแบบ Dialog
+            frmProductCreate.ShowDialog();
+
+            getAllProductToLV(); // เรียกใช้เมธอดเพื่อดึงข้อมูลใหม่จากฐานข้อมูลและแสดงใน ListView
         }
 
+        private void lvAllProduct_ItemActivate(object sender, EventArgs e)
+        {
+            // double click ที่รายการใน ListView เพื่อเปิดฟอร์มแก้ไขข้อมูล (DialogShow)
+            FrmProductUpDel frmProductUpDel = new FrmProductUpDel(
+                int.Parse(lvAllProduct.SelectedItems[0].SubItems[1].Text) // ดึงรหัสสินค้า (proId) จากรายการที่เลือกใน ListView
+
+            ); // สร้าง instance ของฟอร์มแก้ไขข้อมูล
+            frmProductUpDel.ShowDialog();
+            getAllProductToLV();
+        }
     }
 }
